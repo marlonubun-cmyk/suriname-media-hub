@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Suriname Media Hub</h1>
+
+<ul>
+{% for item in media %}
+    <li>
+        <a href="{{ item.url }}" target="_blank">
+            {{ item.name }} ({{ item.category }})
+        </a>
+    </li>
+{% endfor %}
+</ul>
+
+{% endblock %}
