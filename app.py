@@ -1,19 +1,18 @@
-from flask import Flask, render_template
-from config import Config
-from models import db, Media
-from flask_migrate import Migrate
 import os
+from flask import Flask
+from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
-app.config.from_object(Config)
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('SQLALCHEMY_DATABASE_URI')
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'fallbacksecret')
 
-db.init_app(app)
-migrate = Migrate(app, db)
+db = SQLAlchemy(app)
 
 @app.route("/")
 def home():
-    media = Media.query.filter_by(active=True).all()
-    return render_template("index.html", media=media)
+    return "Suriname Media Hub is live!"
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port)
