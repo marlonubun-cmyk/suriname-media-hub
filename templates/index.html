@@ -1,16 +1,37 @@
-{% extends "base.html" %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>D-TV Express</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
 
-{% block content %}
-<h1>Suriname Media Hub</h1>
+<header>
+    <h1>D-TV Express</h1>
+    <a href="/login">Admin Login</a>
+</header>
 
-<ul>
-{% for item in media %}
-    <li>
-        <a href="{{ item.url }}" target="_blank">
-            {{ item.name }} ({{ item.category }})
-        </a>
-    </li>
-{% endfor %}
-</ul>
+<section class="live">
+    <h2>Facebook Live</h2>
+    <iframe 
+        src="https://www.facebook.com/plugins/video.php?href=https://www.facebook.com/DTVExpress/live/"
+        width="560" 
+        height="315" 
+        style="border:none;overflow:hidden"
+        scrolling="no" 
+        frameborder="0" 
+        allowfullscreen="true">
+    </iframe>
+</section>
 
-{% endblock %}
+<section class="posts">
+    {% for post in posts %}
+        <div class="card">
+            <h3>{{ post.title }}</h3>
+            <p>{{ post.content }}</p>
+        </div>
+    {% endfor %}
+</section>
+
+</body>
+</html>
